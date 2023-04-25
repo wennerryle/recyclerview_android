@@ -61,7 +61,8 @@
             android:layout_height="wrap_content"
             android:height="67dp"
             android:backgroundTint="@color/black"
-            android:text="Сохранить" />
+            android:text="Сохранить"
+            android:padding="0dp" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

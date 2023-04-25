@@ -17,13 +17,11 @@ import java.util.List;
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     private final LayoutInflater inflater;
     private final List<User> users;
-
-    private final OnLongUserClickListener onClickListener; // ШАГ 2 - обязательно определяем даный объект типа нашего интерфейса
+    private final OnLongUserClickListener onClickListener;
     public UserAdapter(Context context, List<User> users, OnLongUserClickListener onClickListener) {
         this.inflater = LayoutInflater.from(context);
         this.users = users;
-        this.onClickListener = onClickListener; //продолжение ШАГА 2 - принимаем в конструкторе созданный в MainActivity
-                                                // метод и назначаем его нашему полю onClickListener
+        this.onClickListener = onClickListener;
     }
 
     @NonNull
@@ -38,22 +36,22 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         User user = users.get(position);
         holder.textViewName.setText(user.getName());
         holder.textViewNumber.setText(user.getNumber());
-
-        //---- ШАГ 3 --- привязываем созданый метод к каждому элементу RecyclerView в момент генерации
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                onClickListener.onLongUserClick(view); //тут вызывается 4-й шаг, а именно showMenu(view);
-                //тут что-то....
+                onClickListener.onLongUserClick(view);
                 return false;
             }
         });
-        //--------------------------------------------------------------------------------------------
     }
 
     @Override
     public int getItemCount() {
         return users.size();
+    }
+
+    public User getItem(int position) {
+        return users.get(position);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -65,10 +63,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         }
     }
 
-    //------ШАГ 1 -------------------------------------------------------------------------------------------
-    //добавлен интерфейс для метода, который будет срабатывать при нажатии на конкретный элемент нашего списка
     public interface OnLongUserClickListener{
         void onLongUserClick(View view);
     }
-    //---------------------------------------------------------------------------------------------------------
 }
